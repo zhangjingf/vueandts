@@ -1,0 +1,96 @@
+//随机数字
+@function parse-random($value) {
+  @return round(random() * $value);
+}
+$randomId85232_HASH: parse-random(1000000);
+
+$spriteSrc85232_HASH:'../../../images/sprites/default/sprite.png?v=#{$randomId85232_HASH}';
+
+$spriteWidth85232_HASH: {{spritesheet.width}}px;
+$spriteHeight85232_HASH: {{spritesheet.height}}px;
+{{#items}}
+${{name}}: {{px.offset_x}} {{px.offset_y}} {{px.width}} {{px.height}};
+{{/items}}
+
+@function px2rem85232_HASH ($px) {
+  @if (type-of($px) == "number") {
+    @return $px / 75px * 1rem;
+  }
+  @if (type-of($px) == "list") {
+    @if (nth($px, 1) == 0 and nth($px, 2) != 0) {
+      @return 0 nth($px, 2) / 75px * 1rem;
+    } @else if (nth($px, 1) == 0 and nth($px, 2) == 0)  {
+      @return 0 0;
+    } @else if (nth($px, 1) != 0 and nth($px, 2) == 0) {
+      @return nth($px, 1) / 75px * 1rem 0;
+    } @else {
+      @return nth($px, 1) / 75px *1rem nth($px, 2) / 75px * 1rem;
+    }
+  }
+}
+
+@function strip-units85232_HASH($number){
+  @return $number / ($number * 0 + 1);
+}
+
+@function format-zero85232_HASH($number){
+	@if $number == 0 {
+		@return 1;
+	}@else{
+		@return $number;
+	}
+}
+
+@mixin sprite-width85232_HASH($sprite, $precision) {
+	@if $precision {
+		width: px2rem85232_HASH(nth($sprite, 3));
+	}@else{
+		width: px2rem85232_HASH(nth($sprite, 3) + 2px);
+	}
+	
+}
+
+@mixin sprite-height85232_HASH($sprite, $precision) {
+	@if $precision {
+		height: px2rem85232_HASH(nth($sprite, 4));
+	}@else{
+		height: px2rem85232_HASH(nth($sprite, 4) + 2px);
+	}
+}
+
+@mixin sprite-position85232_HASH($sprite, $precision) {
+	@if $precision {
+		background-position: strip-units85232_HASH(nth($sprite, 1)) / strip-units85232_HASH(nth($sprite, 3) - $spriteWidth85232_HASH) * 100%  strip-units85232_HASH(nth($sprite, 2)) / format-zero85232_HASH(strip-units85232_HASH(nth($sprite, 4) - $spriteHeight85232_HASH)) * 100%;
+	}@else{
+		background-position: strip-units85232_HASH(nth($sprite, 1)) / strip-units85232_HASH(nth($sprite, 3) + 1 - $spriteWidth85232_HASH) * 100%  strip-units85232_HASH(nth($sprite, 2)) / format-zero85232_HASH(strip-units85232_HASH(nth($sprite, 4) + 1 - $spriteHeight85232_HASH)) * 100%;
+	}
+}
+
+@mixin sprite85232_HASH($sprite, $precision) {
+	@include sprite-position85232_HASH($sprite, $precision);
+	@include sprite-width85232_HASH($sprite, $precision);
+	@include sprite-height85232_HASH($sprite, $precision);
+    background-image: url('#{$spriteSrc85232_HASH}');
+	background-repeat: no-repeat;
+	background-size: px2rem85232_HASH(($spriteWidth85232_HASH, $spriteHeight85232_HASH));
+    display: inline-block;
+}
+
+{{#sprite}}
+    {{class}} {
+    background-repeat: no-repeat;
+    overflow: hidden;
+    border: none;
+    background: url('{{{escaped_image}}}?v=#{$version}');
+    @include inline-block();
+    vertical-align: middle;
+    font-style: normal;
+    color:$icon-font-color;
+    }
+{{/sprite}}
+
+{{#items}}
+.icon-{{name}} {
+    @include sprite85232_HASH(${{name}}, false);
+}
+{{/items}}

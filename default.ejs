@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <!--<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">-->
+    <meta charset="utf-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+	<% for (var css in htmlWebpackPlugin.files.css) { %>
+	<%
+        var cssSrc = htmlWebpackPlugin.files.css[css];
+        var cssArr = cssSrc.split("/");
+        if(cssArr.length > 1){
+            cssSrc = cssArr[cssArr.length - 1];
+        }
+	%>
+    <link href="<%=cssSrc %>" rel="stylesheet">
+	<% } %>
+</head>
+<body>
+<div id="app"></div>
+<% for(var k in htmlWebpackPlugin.files.chunks){ %>
+<%
+ var src = htmlWebpackPlugin.files.chunks[k].entry;
+ 
+ //var arr = src.split("/");
+ //if(arr.length > 1){
+  //   src = arr[arr.length - 1];
+// }
+ %>
+<!-- <script src="..<%=src %>"></script> -->
+<%}%>
+</body>
+</html>

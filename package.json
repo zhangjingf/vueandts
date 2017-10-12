@@ -1,0 +1,44 @@
+{
+  "name": "vueandts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "server": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https:\\\\github.com\\zhangjingf"
+  },
+  "keywords": [
+    "734546749zhang"
+  ],
+  "author": "zhangjf",
+  "license": "ISC",
+  "dependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "url-loader": "^0.6.2",
+    "vue": "git+https://github.com/DanielRosenwasser/vue.git#540a38fb21adb7a7bc394c65e23e6cffb36cd867",
+    "webpack-spritesmith": "^0.3.3"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "express": "^4.16.1",
+    "ts-loader": "^2.3.7",
+    "typescript": "^2.5.2",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.2.1",
+    "webpack": "^3.6.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-merge": "^4.1.0"
+  }
+}

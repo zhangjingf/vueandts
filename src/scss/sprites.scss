@@ -1,0 +1,96 @@
+//随机数字
+@function parse-random($value) {
+  @return round(random() * $value);
+}
+$randomId85232_HASH: parse-random(1000000);
+
+$spriteSrc85232_HASH:'../../../images/sprites/default/sprite.png?v=#{$randomId85232_HASH}';
+
+$spriteWidth85232_HASH: 158px;
+$spriteHeight85232_HASH: 97px;
+$acti-eye: -42px -62px 40px 24px;
+$acti-thumb: 0px -62px 34px 35px;
+$comment: -50px 0px 50px 43px;
+$coupon: -108px 0px 50px 42px;
+$detail: 0px 0px 42px 54px;
+
+@function px2rem85232_HASH ($px) {
+  @if (type-of($px) == "number") {
+    @return $px / 75px * 1rem;
+  }
+  @if (type-of($px) == "list") {
+    @if (nth($px, 1) == 0 and nth($px, 2) != 0) {
+      @return 0 nth($px, 2) / 75px * 1rem;
+    } @else if (nth($px, 1) == 0 and nth($px, 2) == 0)  {
+      @return 0 0;
+    } @else if (nth($px, 1) != 0 and nth($px, 2) == 0) {
+      @return nth($px, 1) / 75px * 1rem 0;
+    } @else {
+      @return nth($px, 1) / 75px *1rem nth($px, 2) / 75px * 1rem;
+    }
+  }
+}
+
+@function strip-units85232_HASH($number){
+  @return $number / ($number * 0 + 1);
+}
+
+@function format-zero85232_HASH($number){
+	@if $number == 0 {
+		@return 1;
+	}@else{
+		@return $number;
+	}
+}
+
+@mixin sprite-width85232_HASH($sprite, $precision) {
+	@if $precision {
+		width: px2rem85232_HASH(nth($sprite, 3));
+	}@else{
+		width: px2rem85232_HASH(nth($sprite, 3) + 2px);
+	}
+	
+}
+
+@mixin sprite-height85232_HASH($sprite, $precision) {
+	@if $precision {
+		height: px2rem85232_HASH(nth($sprite, 4));
+	}@else{
+		height: px2rem85232_HASH(nth($sprite, 4) + 2px);
+	}
+}
+
+@mixin sprite-position85232_HASH($sprite, $precision) {
+	@if $precision {
+		background-position: strip-units85232_HASH(nth($sprite, 1)) / strip-units85232_HASH(nth($sprite, 3) - $spriteWidth85232_HASH) * 100%  strip-units85232_HASH(nth($sprite, 2)) / format-zero85232_HASH(strip-units85232_HASH(nth($sprite, 4) - $spriteHeight85232_HASH)) * 100%;
+	}@else{
+		background-position: strip-units85232_HASH(nth($sprite, 1)) / strip-units85232_HASH(nth($sprite, 3) + 1 - $spriteWidth85232_HASH) * 100%  strip-units85232_HASH(nth($sprite, 2)) / format-zero85232_HASH(strip-units85232_HASH(nth($sprite, 4) + 1 - $spriteHeight85232_HASH)) * 100%;
+	}
+}
+
+@mixin sprite85232_HASH($sprite, $precision) {
+	@include sprite-position85232_HASH($sprite, $precision);
+	@include sprite-width85232_HASH($sprite, $precision);
+	@include sprite-height85232_HASH($sprite, $precision);
+    background-image: url('#{$spriteSrc85232_HASH}');
+	background-repeat: no-repeat;
+	background-size: px2rem85232_HASH(($spriteWidth85232_HASH, $spriteHeight85232_HASH));
+    display: inline-block;
+}
+
+
+.icon-acti-eye {
+    @include sprite85232_HASH($acti-eye, false);
+}
+.icon-acti-thumb {
+    @include sprite85232_HASH($acti-thumb, false);
+}
+.icon-comment {
+    @include sprite85232_HASH($comment, false);
+}
+.icon-coupon {
+    @include sprite85232_HASH($coupon, false);
+}
+.icon-detail {
+    @include sprite85232_HASH($detail, false);
+}
