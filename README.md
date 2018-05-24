@@ -1,6 +1,11 @@
 # vueandts
-  本项目支持在vue框架中使用typescript写法，同时集承webpack模块化打包，支持scss,支持雪碧图生成，并包含一些开发中常用的功能组件。
-  1.安装依赖包
+  1.支持在vue框架中使用typescript写法，
+  2.集承webpack模块化打包
+  3.支持scss
+  4.支持雪碧图自动生成
+  5.安装依赖包
     npm install
-  2.本地开发
+  6.本地开发
     npm start
+  7.打包
+    npm run build
