@@ -6,7 +6,6 @@ export default Vue.extend({
             <div>Hello {{name}}{{exclamationMarks}}</div>
             <button @click="decrement">-</button>
             <button @click="increment">+</button>
-            
         </div>
     `,
     props: ['name', 'initialEnthusiasm'],

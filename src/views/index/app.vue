@@ -10,13 +10,12 @@ export default {
 
     },
     methods: {
-        
     },
     mounted() {
         const vm = this;
         console.log(vm);
     }
-} 
+}
 </script>
 <style lang="scss" scoped>
 

@@ -5,16 +5,12 @@ const webpack = require('webpack');
 const srcDir = path.resolve(__dirname, "../src");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SpritesmithPlugin = require('webpack-spritesmith');
-const isProduction = process.env.NODE_ENV == "production";
 
 var opts = {
     entries: {},
     plugins: []
 }
-
-var entries = {};
 var files = glob.sync(`${srcDir}/views/**/index.ts`);
 files.forEach(file => {
     const srcDirPosix = srcDir.replace(/\\+/g, "/");
@@ -23,8 +19,8 @@ files.forEach(file => {
     const index = array.slice(srcDirArray.length, array.length - 1).join("/");
     opts.entries[index] = file;
     opts.plugins.push(new HtmlWebpackPlugin({
-        "template": './default.ejs', 
-        "filename": `${index}/${index}.html`, 
+        "template": './default.ejs',
+        "filename": `${index}/${index}.html`,
         "hash": false, //是否加上hash
         "chunks": ["common", index], //添加进去的js chunk
         "chunksSortMode": "dependency",
@@ -77,11 +73,6 @@ Object.keys(status).forEach(name => {
 module.exports = {
     entry: opts.entries,
     plugins: opts.plugins,
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        publicPath: '/',
-        filename: `[name]/[name].js${isProduction ? '?v=[chunkhash]' : ''}`
-    },
     module: {
         rules: [
           {
